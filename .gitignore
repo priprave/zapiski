@@ -1,0 +1,11 @@
+.pdf-view-restore
+_minted*
+auto/*
+*/auto/*
+*.aux
+*.log
+*.toc
+*.pdf
+zbt-templates
+
+poglavje-*.tex

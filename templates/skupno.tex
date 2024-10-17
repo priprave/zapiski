@@ -1,0 +1,48 @@
+\usepackage{polyglossia}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{minted}
+\usepackage{xcolor}
+\usepackage[autostyle]{csquotes}
+
+\DeclareQuoteAlias{german}{slovene}
+\setdefaultlanguage{slovene}
+\definecolor{LightGray}{gray}{0.9}
+
+\author{ACM priprave na tekmovanja}
+\date{Različica z dne \today}
+
+\newcommand{\naslov}[1]{\section{#1}}
+\newcommand{\podnaslov}[1]{\subsection{#1}}
+
+\newcommand{\koda}[1]{\mintinline{c++}{#1}}
+
+\newenvironment{blokkode}
+{
+  \begin{minted}
+	[
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1,
+	bgcolor=LightGray,
+	mathescape,
+	linenos
+	]
+	{c++}
+}
+{
+  \end{minted}
+}
+
+\newcommand{\fkoda}[1]{
+  \inputminted
+  [
+  frame=lines,
+  framesep=2mm,
+  baselinestretch=1,
+  bgcolor=LightGray,
+  mathescape,
+  linenos
+  ]{c++}{#1}
+}
