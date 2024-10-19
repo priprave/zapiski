@@ -53,12 +53,21 @@ Namesto `\section` uporabljaj `\naslov`, namesto `\subsection` uporabljaj
 `\podnaslov`, namesto `\subsubsection` dobro premisli, kako besedilo oblikuješ
 drugače.
 
+Za referenco na nalogo na putki uporabiš makro `\putka{id-naloge}{ime naloge}`,
+ki bo avtomatsko ustvaril povezavo na nalogo.
+Trenutno so naloge formatirane samo kot povezave, v prihodnosti pa se to lahko
+spremeni.
+
 ### Vključevanje C++ kode
 
 Za inline kodo uporabljaj `\koda{printf(...)}`, razen v primerih, kjer to ni
 možno (npr. ker želiš napisati backslash).
 V takih primerih uporabljaj `\verb+sem vnesi kodo+`; če ne moreš uporabiti znaka
 `+`, pa uporabi enega drugega.
+Sprejemljiva je tudi uporaba `\texttt`, sploh če ne pišeš kode, ampak le
+nek plaintext.
+Poleg tega moraš `\texttt` uporabljati za kodo v naslovih, ker `\koda` tam ne
+deluje.
 Za večje bloke kode imaš dve možnosti; bolje je, če kodo zapišeš v datoteko, in
 pokličeš `\fkoda{poglavja/kratko-ime-poglavja/blabla.cpp}`, lahko pa kodo tudi
 vneseš direktno v okolje `blokkode`.
@@ -69,5 +78,5 @@ Tudi `\verb` je sprejemljiv, a poskrbi, da ne gre čez rob vrstice v končnem
 dokumentu.
 
 <!--  LocalWords:  generiranje PDF LaTeX preamble makrota makrote makroti moreš
-<!--  LocalWords:  inline backslash večvrstični
+<!--  LocalWords:  inline backslash večvrstični putki plaintext
  -->

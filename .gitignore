@@ -1,11 +1,13 @@
 .pdf-view-restore
 _minted*
 auto/*
-*/auto/*
+**/auto/*
 *.aux
 *.log
 *.toc
 *.pdf
+*.out
 zbt-templates
+**/a.out
 
 poglavje-*.tex

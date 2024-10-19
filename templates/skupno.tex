@@ -5,6 +5,13 @@
 \usepackage{minted}
 \usepackage{xcolor}
 \usepackage[autostyle]{csquotes}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=cyan
+}
 
 \DeclareQuoteAlias{german}{slovene}
 \setdefaultlanguage{slovene}
@@ -46,3 +53,5 @@
   linenos
   ]{c++}{#1}
 }
+
+\newcommand{\putka}[2]{\href{https://putka-rtk.acm.si/tasks/t/#1}{#2}}

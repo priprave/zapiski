@@ -1,0 +1,143 @@
+\naslov{Dodatni formatniki za \texttt{scanf}}
+
+Poleg že znanih formatnikov \verb+%d+, \verb+%lld+ in \verb+%s+ poznamo tudi
+druge, ki so lahko uporabni v različnih situacijah.
+Seznam pogosto uporabnih formatnikov je v
+tabeli~\ref{tab:vhod-in-izhod-dopolnitev:formatniki}.
+V tabeli se pojavi izraz \emph{prazen znak}, angl.~\emph{whitespace} --- to je
+znak, ki zasede prostor v spominu (in kateremu pripada ASCII koda), vendar se na
+zaslonu ne pojavi.
+Poznamo tri take znake, to se presledek, tabulator \verb+\t+ in znak za novo
+vrstico \verb+\n+.
+Formatniki \verb+%d+, \verb+%lld+ in \verb+%s+ preberejo, a ignorirajo, prazne
+znake, ki se pojavijo pred vsebino, ki jo formatnik dejansko shrani.
+Če npr.~v spodnji primer programa vpišemo vhod
+\begin{verbatim*}
+Hello
+
+   World!
+\end{verbatim*}
+bo program prebral le ti dve besedi, in ne praznih znakov med njima.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{c|l}
+	formatnik & opis \\
+	\hline
+	\verb+%%+ & en znak \verb+%+ \\
+	\verb+%d+ & število tipa \koda{int} \\
+	\verb+%lld+ & število tipa \koda{long long} \\
+	\verb+%c+ & poljuben znak (lahko tudi prazen znak) \\
+	\verb+%s+ & zaporedje nepraznih znakov \\
+	\verb+%[...]+ & zaporedje znakov, ki se pojavijo med oglatimi oklepaji \\
+	\verb+%[^...]+ & zaporedje znakov, ki se ne pojavijo med oglatimi oklepaji
+  \end{tabular}
+  \caption{Različni formatniki za \koda{scanf} in \koda{printf}}%
+  \label{tab:vhod-in-izhod-dopolnitev:formatniki}
+\end{table}
+
+
+\fkoda{poglavja/vhod-in-izhod-dopolnitev/formatnik-s.cpp}
+
+Zadnja formatnika v tabeli, \verb+%[...]+ in \verb+%[^...]+ sta bolj zapletena
+od ostalih.
+Uporabljamo ju tako, da namesto tropičja v oglate oklepaje zapišemo seznam
+znakov, ki so dovoljeni v prebranem besedilu.
+Tako lahko npr.~enostavno ločimo besedo, sestavljeno iz črk in številk na niz in
+na število, ki ga lahko takoj shranimo v \koda{int}:
+
+\fkoda{poglavja/vhod-in-izhod-dopolnitev/primer-branje-niza-in-stevila.cpp}
+
+Če zgornjemu programu kot vhod podamo \texttt{aacbb012}, bo izpisal
+\begin{verbatim}
+Niz: aacbb, stevilo: 12
+\end{verbatim}
+Če želimo dovoliti vse male črke abecede, lahko namesto seznama vseh črk
+zapišemo tudi \verb+%[a-z]+, podobno lahko za velike črke uporabimo
+\verb+%[A-Z]+, za števke pa \verb+%[0-9]+.
+Formatnik bo v zadnjem primeru še vedno prebral niz znakov, in ga ne bo
+avtomatsko pretvoril v \koda{int}.
+Tudi te obsege lahko kombiniramo, formatnik \verb+%[a-z2-7B]+ npr.~prebere niz,
+sestavljen iz malih črk angleške abecede, števk med $2$ in $7$ ter velike črke
+B.
+
+Formatnik \verb+%[^...]+ deluje podobno kot formatnik \verb+%[...]+, le da
+prebere vse znake, razen tistih, ki smo jih zapisali namesto tropičja.
+Ta formatnik je uporaben pri branju niza do konca vrstice, česar s formatnikom
+\verb+%s+ ne moremo narediti, če nimamo podanega števila besed v vrstici.
+Primer je prikazan v spodnjem programu, kjer uporabimo tudi formatnik
+\verb+%*c+.
+Ta deluje enako kot formatnik \verb+%c+, le da znaka, ki ga prebere, nikjer ne
+shrani, zato zanj tudi ne podamo spremenljivke.
+Ta formatnik je potreben, ker \verb+%[^\n]+ ne prebere znaka za novo vrstico, ki
+ga \enquote{počistimo} z \verb+%*c+.
+Če bi želeli prebrati dve zaporedni vrstici in nebi uporabili \verb+%*c+, nebi
+druga uporaba formatnika \verb+%[^\n]+ shranila ničesar, saj bi nemudoma
+naletela na znak za novo vrstico, in zaključila branje.
+
+\fkoda{poglavja/vhod-in-izhod-dopolnitev/do-konca-vrstice.cpp}
+
+\naslov{Neznano število podatkov}
+
+Če vemo točno, koliko besed, številk oz.~vrstic bomo imeli na vhodu, jih lahko
+preberemo z zanko.
+Kaj pa, če ne vemo, koliko podatkov bo na vhodu, kot v nalogi
+\putka{neznane-vsote}{Neznane vsote}?
+Če podatke beremo v neskončni zanki, bomo sicer prebrali vse, a se program ne
+bo nikoli ustavil.
+V naslednjem primeru je nakazano, kako ta problem rešimo:
+
+\fkoda{poglavja/vhod-in-izhod-dopolnitev/do-konca-vhoda.cpp}
+
+Funkcija \koda{scanf} vrne število formatnikov, ki jih je uspešno prebrala (če
+ji kot parameter npr.~podamo samo \verb+%d+, bo vrnila $1$, če je uspešno
+prebrala število, sicer pa $0$).
+Posebno vrednost \koda{EOF} (End of File) pa vrne, če na vhodu ni ničesar več za
+prebrati.
+Tedaj se bo zanka ustavila.
+Če programu vhodne podatke podajamo iz datoteke, se to zgodi avtomatsko ob koncu
+datoteke, če pa mu podatke podajamo na roko, konec vhoda sporočimo s
+\verb|Ctrl+D| (Linux in MacOS) ali \verb|Ctrl+Z| (Windows).
+
+\naslov{Uporaba nizov ali datotek za vhodno-izhodni sistem}
+
+Včasih si lahko pri procesiranju podatkov pomagamo s tem, da dano besedilo prvo
+shranimo v niz, preden ga pretvorimo v drugo obliko, ali iz njega izluščimo
+podatke.
+Pri tem si lahko pomagamo s funkcijama \koda{sscanf} in \koda{ssprintf}, ki
+delujeta podobno kot poznana \koda{scanf} in \koda{printf}, vendar namesto
+branja iz oz.~pisanja na standardni vhod oz.~izhod delujeta z nizi v spominu.
+Niz, s katerega beremo oz.~na katerega pišemo, podamo kot prvi argument v ti
+funkciji, kakor v spodnjem primeru.
+
+\fkoda{poglavja/vhod-in-izhod-dopolnitev/sscanf-sprintf.cpp}
+
+Podobno lahko s pomočjo funkcij \koda{fscanf} ter \koda{fprintf} beremo iz in
+pišemo v datoteke na računalniku.
+Datoteke predstavimo s posebnim tipom \koda{FILE}, pri katerem moramo poleg
+imena spremenljivke napisati tudi zvezdico (zakaj je temu tako, spoznamo v enem
+od kasnejših poglavij).
+Da se povežemo s pravo datoteko, uporabimo funkcijo \koda{fopen}, ki ji podamo
+dva argumenta.
+Prvi argument je ime datoteke, ki jo želimo uporabljati, drug argument pa je
+možnost odpiranja.
+Za naše potrebe sta dovolj dve možnosti, \koda{"r"}, ki pove, da bomo datoteko
+odprli v načinu za branje, ter \koda{"w"}, ki pove, da bomo datoteko odprli v
+načinu za pisanje.
+Slednja možnost tudi ustvari datoteko z danim imenom, če ta ne obstaja, oziroma
+izbriše vso besedilo v tej datoteki, če datoteka že ima vsebino.
+Primer uporabe funkcij \koda{fscanf} in \koda{fprintf} je prikazan spodaj.
+Opazimo, da se na koncu programa pojavi tudi funkcija \koda{fclose}.
+Ta funkcija operacijskemu sistemu pove, da smo z branjem oz.~pisanjem
+zaključili, in da lahko spremembe na tej točki shrani v dejansko datoteko (brez
+klica te funkcije shranjevanje sprememb ni zagotovljeno).
+Funkcijo moramo nujno poklicati za vsako datoteko, ki smo jo odprli z
+\koda{fopen}.
+
+\fkoda{poglavja/vhod-in-izhod-dopolnitev/datoteke.cpp}
+
+\end{document}
+
+%#endblock
+% LocalWords:   formatniki scanf formatnikov formatnik formatnika tropičja
+% LocalWords:  formatnikom vhodno-izhodni

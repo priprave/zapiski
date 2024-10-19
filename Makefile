@@ -1,5 +1,5 @@
 # Ko dodajaš novo poglavje, ga dodaj na seznam sem
-poglavja := vhod-in-izhod
+poglavja := vhod-in-izhod vhod-in-izhod-dopolnitev
 
 # Pod to vrstico ničesar ne urejaj, če ne veš, kaj delaš!
 # -------------------------------------------------------
@@ -15,7 +15,7 @@ zbt-templates: $(wildcard templates/*.tex)
 $(poglavja-filenames): poglavje-%.pdf: poglavje-%.tex
 	$(latex-cmd) $^
 
-poglavje-%.tex: zbt-templates poglavja/%/*.tex
+poglavje-%.tex: zbt-templates poglavja/%/*.tex poglavja/%/*.cpp
 	echo "% Avtomatsko generirana datoteka. Varno za izbris." > $@
 	cat templates/poglavje-1.tex > $@
 	cat poglavja/$*/meta.tex >> $@
@@ -23,7 +23,7 @@ poglavje-%.tex: zbt-templates poglavja/%/*.tex
 	cat poglavja/$*/all.tex >> $@
 	cat templates/poglavje-3.tex >> $@
 
-ucbenik.pdf: ucbenik.tex $(predmeti-filenames)
+ucbenik.pdf: ucbenik.tex $(poglavja-filenames)
 	$(latex-cmd) $^
 
 .PHONY: clean
