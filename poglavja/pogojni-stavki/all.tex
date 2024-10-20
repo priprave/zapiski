@@ -1,0 +1,98 @@
+Pogosto želimo, da računalnik izvaja drugačno kodo glede na vrednost ene ali
+več spremenljivk, npr.~da nam pokaže drugačno vsebino, če smo napisali
+pravilno ali napačno geslo, da računalo sešteva, če smo pritisnili gumb za
+seštevanje, oz.~odšteva, če smo pritisnili gumb za odštevanje.
+Z drugimi besedami, želimo upravljati potek programa (torej izbrati, katera koda
+naj se izvede) glede na vrednosti spremenljivk.
+Angleško takemu upravljanju pravimo \emph{control flow}, najpogosteje pa ga
+izvajamo s t.i.~\emph{pogojnimi stavki}.
+Osnovna struktura je sledeča:
+
+\fkoda{poglavja/pogojni-stavki/sintaksa.cpp}
+
+\emph{Pogoj} je nov pojem. Označuje neke vrste račun, katerega rezultat ni
+število, vendar \emph{logična vrednost}.
+Tu sta možni vrednosti le dve: pravilno (angl.~\koda{true}) in napačno
+(angl.~\koda{false}).
+Če bo rezultat računa, navedenega v običajnih oklepajih v zgornjem \koda{if}
+stavku, \koda{true}, se bo izvedla koda znotraj prvih zavitih oklepajev, če pa
+je rezultat računa \koda{false}, pa se bo izvedla koda v drugih zavitih
+oklepajih (tistih za besedo \koda{else}).
+Drugega dela, tj.~\koda{else} in oklepaje za njim, ni treba pisati, če tega ne
+želimo.
+
+Kako pa zapišemo pogoj?
+Za to uporabimo posebne \emph{logične operatorje}.
+Pri delu s številkami so nam na voljo naslednji:
+\begin{itemize}
+\item \koda{==}: primerja dve številski vrednosti.
+  Rezultat je \koda{true}, če sta vrednosti enaki.
+\item \koda{!=}: primerja dve številski vrednosti.
+  Rezultat je \koda{true}, če sta vrednosti različni.
+\item \koda{<}: primerja dve številski vrednosti.
+  Rezultat je \koda{true}, če je vrednost na levi manjša od vrednosti na desni.
+\item \koda{>}: deluje podobno kot \koda{<}, le da v drugo smer;
+  rezultat je \koda{true}, če je vrednost na desni manjša od vrednosti na levi.
+\item \koda{<=}: primerja dve številski vrednosti.
+  Rezultat je \koda{true}, če sta vrednosti enaki, ali če je vrednost
+  na levi manjša od vrednosti na desni.
+\item \koda{>=} deluje podobno kot \koda{<=}, le da v drugo smer.
+\end{itemize}
+
+Poglejmo si primer uporabe pogojnega stavka.
+
+\fkoda{poglavja/pogojni-stavki/stevila.cpp}
+
+Program v zgornjem primeru primerja dve števili z vsemi naštetimi operatorji.
+Če v program vpišemo npr.~števili $3$ in $7$, vstopimo v drugi, tretji in peti
+pogojni stavek, zaradi česar se izpišejo naslednje vrstice:
+%
+\begin{verbatim}
+Stevili sta razlicni.
+Prvo stevilo je manjse od drugega.
+Prvo stevilo je manjse ali enako drugemu.
+\end{verbatim}
+%
+Če pa v program dvakrat vnesemo število $12$ (ali katerokoli drugo število), pa
+dobimo naslednji izhod:
+%
+\begin{verbatim}
+Stevili sta enaki.
+Prvo stevilo je manjse ali enako drugemu.
+Prvo stevilo je vecje ali enako drugemu.
+\end{verbatim}
+
+Pozorni moramo biti, da pri primerjavi enakosti dveh števil napišemo dva
+enačaja, \koda{==}.
+Če zapišemo le en enačaj, kot v matematiki (torej \koda{=}), se bo program sicer
+zagnal, vendar ne bo deloval pravilno.
+Enojnega enačaja nikoli ne uporabljamo v pogoju \koda{if} stavka!
+
+Oglejmo si še primer uporabe stavka \koda{else}.
+Spodnji program bo uporabnika vprašal za PIN, in mu napisal, če je bil PIN
+pravilen oziroma napačen.
+
+\fkoda{poglavja/pogojni-stavki/pin.cpp}
+
+Pogojne stavke lahko tudi gnezdimo, torej vstavimo enega v drugega.
+Spodnji program od uporabnika sprejme naročilo v restavraciji, kjer ponujajo
+dve vrsti hrane; juhe in sendviče.
+Na voljo sta dve vrsti juhe, in dve vrsti sendvičev.
+Za izbiro kosila uporabnik prvo izbere med juho in sendvičem, nato pa še okus.
+
+\fkoda{poglavja/pogojni-stavki/nesting.cpp}
+
+Pozorni bodimo na postavitev kode.
+Običajno kodo znotraj zavitih oklepajev \koda{if} stavka pišemo tako, da je
+poravnana štiri presledke bolj desno od kode zunaj \koda{if} stavka.
+V nekaterih programskih jezikih je taka poravnava obvezna, v C/C++ pa ne, vendar
+nezamaknjena koda že v majhnih programih postane popolnoma nepregledna.
+Branje in popravljanje kode je veliko lažje, če del kode znotraj zavitih
+oklepajev zamaknemo za štiri presledke.
+Za to lahko uporabimo tudi tipko Tab, ki se na tipkovnici nahaja levo od tipke
+Q.
+Kode kot spodaj nikoli ne pišemo!
+
+\fkoda{poglavja/pogojni-stavki/unindented.cpp}
+
+% LocalWords:  nezamaknjena
