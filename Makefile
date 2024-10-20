@@ -31,3 +31,4 @@ clean:
 	rm -f *.log *.aux *.out *.gnuplot *.table *.toc
 	rm -f poglavje-*.tex
 	rm -f zbt-*
+	rm -r _minted-*
