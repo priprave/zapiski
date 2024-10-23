@@ -1,0 +1,114 @@
+\naslov{Seštevanje, odštevanje in množenje}
+
+Najpreprostejše računske operacije na številih, ki jih lahko z računalnikom
+izračunamo, so seštevanje, odštevanje in množenje.
+Račune zapisujemo tako kot v šoli, z \emph{operatorji}.
+Za seštevanje uporabimo \koda{+}, za odštevanje \koda{-} in za množenje \koda{*}.
+Poglejmo si preprost primer, kjer račun izvedemo kar v funkciji \koda{printf}.
+
+\fkoda{poglavja/racunske-operacije/sestevanje.cpp}
+
+Zgornji program preprosto izpiše številko $12$, ki je rezultat računa $5 + 7$.
+Namesto izpisovanja lahko rezultat tudi shranimo v spremenljivko:
+
+\fkoda{poglavja/racunske-operacije/nova-spremenljivka.cpp}
+
+Če v ta program podamo vhod \verb+3 7+, bo izpisal tri števila: $12$, $-4$ in
+$21$.
+Drugo izpisano število ima pred seboj minus.
+Če te to preseneča in še ne poznaš negativnih števil, si preberi naslednji
+razdelek, sicer pa ga lahko izpustiš.
+
+\podnaslov{Negativna števila}
+
+Na meteorološki postaji Kredarica so leta 2014 izmerili povprečno januarsko
+temperaturo približno \SI{-5}{\celsius}, povprečno avgustovsko pa približno
+\SI{6}{\celsius}.
+Med tema meritvama je \SI{11}{\celsius} razlike.
+Pozimi lahko izmerimo temperature manjše od 0.
+Takšnim številom, kot je $-5$, rečemo \emph{negativna števila}.
+Lahko pa jih uporabimo tudi drugje, ne samo pri merjenju temperature.
+S pozitivnimi števili lahko štejemo od $0$ do neskončno ($1, 2, 3, \ldots$), z
+negativnimi pa do negativne neskončnosti ($-1, -2, -3, \ldots$).
+Tako kot pozitivna števila jih lahko seštevamo in odštevamo:
+\begin{gather*}
+  5 - 11 = -6 \\
+  -6 + 11 = 5 \\
+  5 -(-6) = 11 \\
+  -2 - 1 = -3 \\
+  -2 - (-1) = -1 \\
+  -2 + (-1) = -3 \\
+\end{gather*}
+Pri tem se sklicujemo na naslednji pravili, kjer smo z $x$ označili poljubno
+število:
+\begin{gather*}
+  -(-x) = x \\
+  +(-x) = -x
+\end{gather*}
+Z negativnimi števili lahko tudi množimo:
+\begin{gather*}
+  2 \cdot (-5) = -10 \\
+  (-5) \cdot (-5) = 25
+\end{gather*}
+Pri tem uporabimo enostavno pravilo: številski del rezultata je enak, kot če bi
+množili števili brez predznaka \verb+-+.
+Če smo množili eno pozitivno in negativno število, rezultatu pripišemo še
+negativni predznak, če pa smo množili dve negativni števili ali dve pozitivni
+števili, pa tega ne storimo.
+Računalnik pri računanju ne razlikuje med pozitivnimi in negativnimi števili,
+računske operacije pišemo enako kot pri pozitivnih.
+
+\naslov{Deljenje}
+
+Števila lahko tudi delimo, za kar uporabimo znak \koda{/}.
+Pri tem pa moramo biti pozorni, ker se deljenje v računalniku obnaša drugače kot
+smo navajeni iz matematike.
+Običajno pri deljenju dveh števil, recimo $3$ in $7$, dobimo ulomek:
+\[
+  3 / 7 = \frac{3}{7}.
+\]
+Če pa v C++ program zapišemo \verb+printf("%d\n", 3/7)+, bomo dobili
+nepričakovan odgovor --- $0$.
+To je zato, ker je deljenje v C++ \emph{celoštevilsko}.
+
+Za lažje razumevanje si bomo pomagali s formulo $a = k \cdot b + o$, ki
+ponazarja deljenje z ostankom.
+Če želimo število $a$ deliti s številom $b$, bomo kot odgovor dobili dve
+števili: celi del, ki smo ga uspešno delili, in ostanek, kjer deljenje ni bilo
+uspešno.
+Celi del smo zgoraj označili s $k$, ostanek pa z $o$.
+Ko uporabimo operator \koda{/}, dobimo največje tako število, za katero je
+produkt rezultata in delitelja (števila na desni strani \koda{/}) manjši ali
+enak deljencu (številu na levi strani \koda{/}).
+Z drugimi besedami, dobimo $k$ iz zgornjega zapisa.
+Če želimo preveriti še vrednost ostanka $o$, jo lahko izračunamo iz ostalih
+števil,
+\[
+  o = a - k \cdot b,
+\]
+ali pa uporabimo poseben operator \verb+%+, ki mu pravimo \emph{modulo}.
+Poglejmo si, kako deljenje deluje v praksi.
+
+\fkoda{poglavja/racunske-operacije/deljenje.cpp}
+
+Če v zgornji program vpišemo dve števili, bo izpisal rezultat deljenja ter
+razcep števila po zgornji formuli.
+Na primer, ob vhodu \verb+25 7+ dobimo naslednji izpis:
+\begin{verbatim}
+rezultat deljenja je 3, z ostankom 4
+25 = 3 * 7 + 4
+\end{verbatim}
+če pa vpišemo \verb+3 7+, dobimo
+\begin{verbatim}
+rezultat deljenja je 0, z ostankom 3
+3 = 0 * 7 + 3
+\end{verbatim}
+Kaj pa se zgodi, če vpišemo \verb+5 0+?
+V tem primeru bo program poskusil deliti z $0$, kar v matematiki (in v
+programiranju) ni dovoljeno.
+Program se bo zato sesul in ne bo izpisal ničesar, odvisno od našega
+operacijskega sistema pa morda dobimo kakšno sporočilo o napaki.
+Ko delimo ali računamo ostanek z modulom, in je število na desni strani
+operatorja spremenljivka, katere vrednosti ne poznamo vnaprej, moramo preveriti,
+če je slučajno enaka $0$.
+Če je, operacije ne smemo izvesti!
