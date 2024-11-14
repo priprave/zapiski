@@ -46,6 +46,8 @@ prevesti še enkrat, lahko uporabiš
 make -B poglavje-kratko-ime-poglavja.pdf
 ```
 ali pa izpustiš ime datoteke, da znova prevedeš vse.
+Note da ti bo `make` sporočil `no rule for target` napako, če v imeniku nimaš
+nobene `.cpp` datoteke.
 
 ### Pripravljeni makroti
 

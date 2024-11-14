@@ -1,3 +1,5 @@
+\naslov{Osnovna struktura pogojnega stavka}
+
 Pogosto želimo, da računalnik izvaja drugačno kodo glede na vrednost ene ali
 več spremenljivk, npr.~da nam pokaže drugačno vsebino, če smo napisali
 pravilno ali napačno geslo, da računalo sešteva, če smo pritisnili gumb za
@@ -94,5 +96,94 @@ Q.
 Kode kot spodaj nikoli ne pišemo!
 
 \fkoda{poglavja/pogojni-stavki/unindented.cpp}
+
+\poglavje{Nizanje pogojev}
+
+Pogosto se srečamo s problemi, kjer je za rešitev potrebno upoštevati več kot
+en pogoj.
+V takih primerih želimo združiti več pogojnih stavkov tako, da se nek del kode
+izvede, če velja prvi pogoj, drugi del kode pa, če prvi pogoj ne velja, velja pa
+drugi pogoj.
+Z gnezdenjem stavkov lahko to v kodo vključimo na naslednji način:
+
+\fkoda{poglavja/pogojni-stavki/nizanje-narobe.cpp}
+
+V takem primeru nam je na voljo bližnjica \koda{else if}.
+Zgornja koda deluje popolnoma enako kot spodnja:
+
+\fkoda{poglavja/pogojni-stavki/nizanje-pravilno.cpp}
+
+Prednost te bližnjice je, da je naša koda krajša in bolj razumljiva.
+Stavke \koda{else if} lahko tudi verižimo; enemu \koda{if} stavku lahko sledi
+poljubno mnogo stavkov \koda{else if}.
+Pri tem bo računalnik pogoje preverjal po vrsti.
+Pri prvem veljavnem pogoju se bo ustavil in izvedel kodo v pripadajočih zavitih
+oklepajih, za čimer ne bo več preverjal pogojev, temveč bo izvajanje nadaljeval
+za zaključkom vseh nanizanih stavkov.
+Kakor nam v osnovnem \koda{if} stavku ni bilo treba pisati dela z \koda{else},
+če ga nismo potrebovali, nam ga tudi pri uporabi \koda{else if} ni treba.
+
+Oglejmo si primer uporabe.
+Naslednji program prebere število in pove, če je večje, manjše ali enako 0.
+
+\fkoda{poglavja/pogojni-stavki/vecje-manjse-enako.cpp}
+
+Naslednji primer prikaže, da se izvede samo koda pri prvem veljavnem pogoju, ne
+glede na to, koliko pogojev za tem je tudi veljavnih.
+Program izpiše le eno vrstico besedila --- \verb+a je 7+, kljub temu, da velja
+tudi \koda{a > 1}.
+
+\fkoda{poglavja/pogojni-stavki/nizanje-elseif.cpp}
+
+\naslov{Logični vezniki}
+
+Osnovni operatorji za primerjavo pogosto niso dovolj, da izrazimo željen pogoj.
+Če na primer želimo pogledati, ali je neko število med dvema drugima, tega ne
+moramo narediti samo z eno primerjavo.
+Pogoje združujemo s t.i. \emph{logičnimi vezniki}, ki jim včasih pravimo tudi
+\emph{logični operatorji}.
+Poznamo tri osnovne veznike:
+\begin{itemize}
+\item \koda{and} oz.~\koda{&&} združi dva pogoja tako, da združeni pogoj velja
+  samo v primeru, da veljata oba hkrati.
+\item \koda{or} oz.~\koda{||} združi dva pogoja tako, da združeni pogoj velja
+  v primeru, da velja katerikoli od dveh, ali da veljata oba.
+\item \koda{not} oz.~\koda{!} sprejme samo en pogoj.
+  Nov pogoj velja samo takrat, ko originalni pogoj ne velja.
+\end{itemize}
+
+Poglejmo si enostaven primer.
+Če želimo preveriti, ali je dano število med dvema drugima, uporabimo
+logični veznik \koda{&&}.
+
+\fkoda{poglavja/pogojni-stavki/med-steviloma.cpp}
+
+V matematiki pogosto napišemo dvojno primerjavo $a < b < c$.
+Če nekaj podobnega napišemo v C++ program, se bo le-ta sicer zagnal, vendar
+ne bo deloval pravilno.
+Kaj pričakujemo, da se zgodi, če v tako primerjavo zapišemo \verb+3 < 2 < 1+?
+Preveri, kaj se dejansko zgodi!
+
+Pri kombiniranju pogojev bodimo previdni glede pravil prednosti.
+Zanikanje (veznik \koda{not} oz.~\koda{!}) ima namreč prednost pred primerjalnimi
+vezniki (\koda{<}, \koda{==}, \ldots), ter drugima ločnima veznikoma.
+Če v takem primeru uporabljamo zanikanje, moramo zanikan izraz postaviti
+v oklepaje.
+
+Za konec si oglejmo še malo bolj kompleksen primer.
+Napišimo program, ki preveri, ali je uporabnik vpisal prestopno leto.
+Leto je prestopno, če je deljivo s $4$, razen če je hkrati deljivo s $100$.
+Izjema so leta, deljiva s 400, ki so prestopna kljub temu, da so deljiva s
+$100$.
+
+Kako te pogoje zapišemo v program?
+Opazimo, da so leta, deljiva s $400$, prestopna ne glede na druga pogoja.
+Če leto ni deljivo s $400$, potem mora biti deljivo s $4$ in ne sme biti deljivo s
+$100$.
+Povedano krajše, leto mora biti deljivo s $400$, ali pa s $4$ in ne hkrati s
+$100$.
+Tak pogoj lahko zapišemo z logičnimi vezniki.
+
+\fkoda{poglavja/pogojni-stavki/prestopno-leto.cpp}
 
 % LocalWords:  nezamaknjena
