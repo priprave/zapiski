@@ -1,0 +1,118 @@
+\naslov{Sintaksa}
+
+V programiranju pogosto želimo nek del kode ponoviti, zato uporabljamo
+\emph{zanke}.
+Poznamo več zank, a najpogosteje uporabljamo zanko \koda{for}.
+Le-ta ima tri posebne komponente: \emph{začetek}, \emph{pogoj} in \emph{korak}.
+Poglejmo si preprost primer, ki trikrat izpiše besedo \texttt{nekaj}.
+
+\fkoda{poglavja/zanke/sintaksa.cpp}
+
+Poglejmo si, kako ta program deluje. Podpičja v peti vrstici razdelijo okrogle
+oklepaje na tri dele: začetek (\koda{int stevec=0}), pogoj (\koda{stevec < 3})
+in korak (\koda{stevec++}).
+Začetek se bo izvedel, ko se ta zanka začne.
+Vsakič preden se izvede koda v notranjosti zanke, se preveri pogoj.
+Če pogoj drži, se bo izvedla koda v zanki, sicer pa se bo zanka končala.
+Korak je podoben začetku, in se izvede na koncu vsake ponovitve zanke.
+
+V zgornjem primeru začetek naredi novo številko \koda{stevec} in jo nastavi na
+$0$.
+Pogoj preveri, če je \koda{stevec} manjši od $3$, korak \koda{stevec++} pa je
+okrajšava za \koda{stevec = stevec + 1}, torej poveča \koda{stevec} za $1$.
+Program sledi naslednjem postopku:
+\begin{enumerate}
+	\item Program se začne in pride do for zanke,
+	  najprej se izvede začetek \koda{int stevec=0}.
+	\item Zdaj se je začela zanka, preveri se pogoj \koda{stevec < 3}.
+	  Ker je \koda{stevec} za zdaj še $0$, je pogoj izpolnjen.
+	  Izvede se vsebina zanke, torej program izpiše \texttt{nekaj}.
+	  Zdaj smo prišli do konca zanke, izvede se korak, zato se \koda{stevec}
+	  poveča na $1$, program pa skoči nazaj na začetek zanke.
+	\item Ker smo na začetku zanke, se preveri pogoj, \koda{stevec < 3},
+	  \koda{stevec} je zdaj $1$ in je pogoj še vedno izpolnjen, zato se izvede
+	  vsebina zanke.
+	  Ko program še enkrat izpiše \texttt{nekaj}, izvede korak, \koda{stevec}
+	  poveča na $2$ in skoči nazaj na začetek.
+	\item Spet smo na začetku, zato se preveri pogoj, \koda{stevec} je zdaj $2$,
+	  kar je manjše od $3$, zato se \texttt{nekaj} izpiše še tretjič.
+	  Program potem poveča \koda{stevec} na $3$ in skoči nazaj na začetek.
+	\item Ker smo spet na začetku, se bo še enkrat preveril pogoj,
+	  a zdaj je \koda{stevec} enak $3$ in $3$ ni manjše od $3$,
+	  zato se zanka konča.
+	  Ker je naslednji ukaz \koda{return 0}, se bo program tam končal.
+\end{enumerate}
+%
+Vredno je omeniti, da je naš števec zavzel vrednosti $0$, $1$, in $2$, kar se
+morda zdi čudno, glede na to, da bi ponavadi šteli do tri kot $1,2,3$.
+Tovrstno štetje od nič je zelo pogosto v programiranju, in bo prišlo prav
+kasneje, ko se bomo učili o seznamih.
+
+\naslov{Primeri uporabe}
+
+\podnaslov{Spreminjanje dolžine zanke}
+
+Zanka, ki smo jo napisali zgoraj, se bo vedno ponovila trikrat.
+Kaj pa če hočemo, da se zanka ponovi glede na neko število na vhodu?
+Seveda je tudi to mogoče in sicer tako, da vstavimo našo spremenljivko v pogoj
+zanke.
+Poglejmo si primer.
+
+\fkoda{poglavja/zanke/puscica.cpp}
+
+Zgornji program sprejme število in nariše puščico te dolžine.
+Tu uporabimo še en trik, in sicer v funkciji \koda{printf} znotraj zanke ne
+dodamo \verb+\n+, s čimer dosežemo to, da so v izhodu znaki \verb+-+ eden zraven
+drugega v isti vrstici in ne vsak v svoji.
+
+\podnaslov{Branje števil v zanki}
+
+Ena od moči računalnikov je zelo hitra obdelava velike količine podatkov,
+računalnik bo na primer zlahka seštel tisoč števil, medtem ko bi bilo to početi
+na roke precej zamudno.
+Poglejmo si, kako bi napisali program, ki bi nekaj izračunal z več števili.
+
+\fkoda{poglavja/zanke/branje-stevil.cpp}
+
+V zgornjem primeru prvo preberemo število \koda{n}, nato pa ustvarimo
+spremenljivko \koda{vsota}, ki jo takoj nastavimo na $0$.
+V tej spremenljivki bomo hranili vsoto števil, ki smo jih do sedaj videli
+na vhodu (razen \koda{n}), na koncu programa bo torej enaka vsoti vseh takih
+števil.
+
+Opazimo, da v zanki namesto \koda{stevec} sedaj uporabljamo \koda{i}, ki je
+tradicionalna izbira za spremenljivko v zanki.
+V notranjosti zanke so zdaj trije ukazi.
+Najprej naredimo novo spremenljivko, ki jo poimenujemo \koda{sestevanec} in
+preberemo naslednje število iz vhoda.
+Nato pa z okrajšavo \koda{vsota += sestevanec} prištejemo spremenljivki
+\koda{vsota} spremenljivko \koda{sestevanec}.
+Na daljše bi to lahko napisali kot \koda{vsota = vsota + sestevanec}.
+V vsaki iteraciji tako prištejemo ravno prebrano število k vsoti, na koncu pa
+bomo izpisali vsoto vseh.
+
+\podnaslov{Zanka z drugačnim korakom in začetkom}
+
+Do zdaj so vse naše zanke takole:
+\koda{for (int i=0; i < 10; i++)}, torej so začele z nič in se nekajkrat
+ponovile.
+C++ pa nam dovoli, da lahko z našimi zankami naredimo veliko več.
+Kot primer si poglejmo zanko, ki izpiše vsa soda števila med $1$ in $100$.
+
+Pozorno poglejmo števila, ki jih moramo izpisati.
+Ker $1$ ni sodo, bo prvo izpisano število $2$.
+Število $3$ prav tako ni sodo, tako da bomo izpisali $4$, po tem pa $6$, $8$,
+$10$ in tako dalje.
+Vidimo, da vsak korak povečamo izpisano število za $2$, napišimo torej program.
+
+\fkoda{poglavja/zanke/soda-stevila.cpp}
+
+Ker se želena števila začnejo z dva, bomo v začetni del zanke vpisali
+\koda{int i=2}.
+Ker želimo izpisati števila med $1$ in $100$ in ne med $1$ in $99$, bomo v
+pogojnem delu uporabili znak manjše ali enako, \koda{i<=100}
+(pogoj \koda{i<100} ne bi veljal za število $100$).
+Ker želimo povečati naše število za $2$ vsak korak, smo v polje za korak
+napisali \koda{i += 2}.
+Edina stvar, ki jo naredimo v notranjosti napisane zanke pa je, da izpišemo
+trenutno vrednost spremenljivke \koda{i}.
