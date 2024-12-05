@@ -1,5 +1,5 @@
 # Ko dodajaš novo poglavje, ga dodaj na seznam sem
-poglavja := vhod-in-izhod pogojni-stavki vhod-in-izhod-dopolnitev racunske-operacije spomin-in-kazalci urejanje zanke
+poglavja := vhod-in-izhod pogojni-stavki vhod-in-izhod-dopolnitev racunske-operacije spomin-in-kazalci urejanje zanke asimptoticna-notacija
 
 # Pod to vrstico ničesar ne urejaj, če ne veš, kaj delaš!
 # -------------------------------------------------------
