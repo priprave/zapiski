@@ -1,0 +1,94 @@
+\naslov{Sintaksa}
+
+Ko si želimo podatke shraniti tako, da jih bomo lahko spreminjali in na koncu
+nekaj z njimi naredili (npr.~da z njimi računamo, jih izpišemo, itd.), za to
+uporabimo spremenljivke.
+Vsaka spremenljivka hrani en podatek -- vse spremenljivke do sedaj so hranile le
+eno številko.
+Pogosto pa si želimo števila shraniti tako, da bomo kasneje lahko dostopali do
+njih, ampak med pisanjem programa ne vemo točno, s koliko števili bo program
+moral delati.
+Problem rešimo s seznami.
+
+Da ustvarimo seznam (angl.~\emph{array}), zapišemo tip spremenljivke, ki ga bodo
+imeli vsi elementi seznama (trenutno poznamo le \koda{int}, a bomo kmalu
+spoznali tudi druge tipe spremenljivk), nato seznamu damo ime, in na koncu v
+oglatih oklepajih zapišemo dolžino seznama, takole:
+
+\fkoda{poglavja/seznami/sintaksa.cpp}
+
+Tukaj smo ustvarili seznam z imenom \koda{seznam_stevil}, ki hrani $300$ števil.
+Če želimo dostopati do elementov seznama, ali nastaviti njihove vrednosti, tudi
+uporabimo oglate oklepaje, kot v spodnjem primeru.
+
+\fkoda{poglavja/seznami/dostopanje.cpp}
+
+Tu smo prvo nastavili tretji element seznama na $7$, nato smo nastavili četrti
+element seznama na $9$, in za tem nastavili peti element seznama na njuno vsoto.
+Ostalih elementov seznama se nismo dotaknili.
+Tako kot pri spremenljivkah nismo smeli uporabiti vrednosti spremenljivke,
+preden smo ji vrednost nastavili, moramo paziti, da vrednosti posamičnega
+elementa seznama ne uporabljamo, preden je ne nastavimo.
+Narobe bi bilo na primer izpisati \koda{seznam_stevil[2]} ali to vrednost
+uporabiti v računu, saj je nismo nikoli nastavili.
+
+Pri dostopanju do elementov seznama moramo paziti tudi na naslednje dejstvo:
+če imamo seznam dolžine $N$, potem so elementi tega seznama oštevilčeni s
+številkami od $0$ do $N-1$ vključno, ne pa s številkami od $1$ do $N$, kot bi
+morda pričakovali.
+V zgornjem primeru tako lahko zapišemo \koda{seznam_stevil[0]},
+\koda{seznam_stevil[1]}, \ldots, \koda{seznam_stevil[299]}, ne pa tudi
+\koda{seznam_stevil[300]}.
+Pravimo, da so seznami \emph{indeksirani} od $0$ naprej.
+
+Poglejmo si primer preproste naloge.
+Na vhodu je podano število $N$, ki mu sledi $N$ števil.
+Program mora izpisati ta števila (razen prvega, $N$), v obratnem vrstnem redu.
+V ta namen ustvarimo seznam z imenom \koda{seznam}, ki lahko shrani največ
+$1000$ (predpostavimo, da uporabnik ne bo vnesel več kot $1000$ števil).
+Potem s \koda{for} zanko preberemo $N$ števil in vsako shranimo v svoj element
+seznama, začenši z $0$.
+Na koncu se s še eno \koda{for} zanko sprehodimo skozi $i = 0, 1, \ldots, N-1$.
+Na vsakem koraku izračunamo indeks (položaj) elementa, ki je $i$-ti od konca
+seznama, in ga shranimo v spremenljivko \koda{obratni}.
+Ta indeks je natanko \koda{N-i-1}, saj mora za \koda{i=0} biti
+\koda{obratni=N-1}, za \koda{i=1} mora biti \koda{obratni=N-2}, itd.
+Da se seznam na izhodu izpiše v obratnem vrstnem redu, preprosto izpišemo
+\koda{seznam[obratni]}.
+
+\fkoda{poglavja/seznami/obrni.cpp}
+
+Poglejmo si še malo bolj zanimiv primer.
+Naša naloga sedaj je, da uredimo seznam $N$ števil ($N \le 10^6$) po velikosti
+od najmanjšega do največjega.
+Podano imamo tudi informacijo, da bodo ta števila velika med vključno $0$ in
+$100$.
+Naloge se lahko lotimo tako, da preštejemo, kolikokrat se neko število pojavi v
+danem seznamu, nato pa bomo seznam rekonstruirali tako, da bo urejen.
+Da preštejemo, kolikokrat se kakšno število pojavi, uporabimo nov seznam, kjer
+indeks pomeni številko, ki jo štejemo, shranjena vrednost pa kolikokrat smo to
+številko že prešteli.
+
+\fkoda{poglavja/seznami/counting.cpp}
+
+Ta algoritem za urejanje je zelo znan; imenuje se urejanje s preštevanjem
+(angl.~\emph{counting sort}).
+Primeren je, kadar imamo zelo majhen razpon možnih vrednosti števil, kakor smo
+imeli tu ($0 - 100$).
+Obstajajo tudi drugi algoritmi za urejanje.
+Nekatere bomo spoznali kasneje.
+
+\podnaslov{Večdimenzionalni seznami}
+
+Videli smo, kako ustvariti seznam števil, kaj pa seznam seznamov?
+Takemu seznamu pravimo \emph{dvodimenzionalen seznam}, ustvarimo pa ga tako,
+da napišemo dva zaporedna oglata oklepaja z velikostjo, kot spodaj:
+
+\fkoda{poglavja/seznami/sintaksa-2d.cpp}
+
+Dvodimenzionalni seznami so uporabni, kadar moramo podatke predstaviti v tabeli.
+Do posamičnih elementov dostopamo z dvojnimi oglatimi oklepaji, tako kot pri
+inicializaciji spremenljivke; \koda{tabela[i][j]}.
+Tabele si običajno predstavljamo tako, da nam prvi indeks poda zaporedno
+številko vrstice, drugi pa zaporedno številko stolpca.
+Sicer pa z njimi delamo enako kot z običajnimi seznami.
