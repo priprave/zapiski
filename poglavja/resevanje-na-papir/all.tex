@@ -1,0 +1,121 @@
+\naslov{Tekmovanje RTK}
+
+Na šolskem nivoju tekmovanja RTK ter v nekaterih skupinah tekmovanja na državnem
+nivoju se programerske naloge rešuje \enquote{na papir.}
+To ne pomeni, da moraš rešitve dejansko z roko napisati na list papirja, temveč
+le, da oddaje ne bodo avtomatsko ocenjene, temveč jih bo pregledal eden od
+popravljavcev, rezultat pa dobiš šele po koncu tekmovanja.
+Pišeš lahko bodisi na računalnik, bodisi na list papirja.
+
+Ker tvojega programa ne bo nihče prevedel ali pognal, so sprejemljive tudi
+rešitve, ki niso popolnoma sintaktično pravilne --- za napake kot manjkajoče
+podpičje na koncu vrstice, napačen formatnik v \koda{printf}, tipkarski škrati
+ipd.~se praviloma odšteje le nekaj točk, kljub temu da tak program na
+običajnem tekmovanju nebi dosegel nobene točke.
+Med drugim to tudi pomeni, da lahko oddajaš delne rešitve.
+Če nalogo na primer razdeliš na dva manjša problema, enega od katerih znaš
+rešiti, drugega pa ne, lahko zapišeš rešitev prvega podproblema in opišeš, kako
+bi jo lahko kombiniral z rešitvijo drugega problema.
+Za tako oddajo seveda ne dobiš vseh točk, če pa je rešen del problema dovolj
+pomemben, pa ti popravljavci lahko dodelijo delne točke.
+
+Ker programa ne bo pregledal računalnik, pač pa človek, moraš svojo rešitev
+napisati tako, da bo bralcu jasno, kaj tvoja rešitev počne.
+To med drugim pomeni, da uporabljaš deskriptivna imena spremenljivk, da v
+komentarjih programa razložiš, kakšno idejo tvoja rešitev uporablja, ter da na
+kratko utemeljiš, kaj naredi posamezen blok kode.
+Koda mora biti tudi lepo poravnana, da bo bralec lahko že s pogledom videl, kako
+je program strukturiran.
+
+Včasih navodila naloge dopuščajo pisanje rešitev v psevdokodi.
+To pomeni, da lahko rešitev zapišeš v besedah, a jo strukturiraš kot da bi bila
+koda --- torej tako, da lahko vsakdo, ki je vsaj malo vešč v programiranju, tvoj
+zapis enostavno prevede v svoj najljubši programski jezik.
+Ko pišeš v psevdokodi, uporabljaš standardne strukturne elemente programov
+(\koda{if} stavke, \koda{for} zanke itd.), vendar jih zapišeš v slovenščini, ne
+kot kodo.
+
+\naslov{Primeri}
+
+Spodaj je nanizanih nekaj primerov rešitev za naloge iz šolskega tekmovanja
+MladiRTK 2024, ki so dostopne na
+\href{https://rtk.ijs.si/2024/mladirtk2024-solsko-naloge-resitve-kriterij.pdf}{tej
+povezavi}.
+Vse naloge so vredne $25$ točk.
+
+\podnaslov{Pribor}
+
+Kot prvi primer si poglejmo program spodaj.
+Iz opisa je razvidno, da je tekmovalec prebral nalogo, in da ve, kateri funkciji
+se v C++ uporabljata za branje in pisanje iz standardnega vhoda in izhoda,
+vendar je zapisana rešitev vredna $0$ točk.
+Tekmovalec ni nakazal, kako bi program dejansko napisal, temveč je le v svojih
+besedah zapisal besedilo naloge.
+
+\fkoda{poglavja/resevanje-na-papir/pribor-zelo-slabo.cpp}
+
+Primerjajmo to z rešitvijo, ki je vredna vseh $25$ točk.
+Ne samo, da spodnja koda pravilno reši problem, to dejstvo je tekmovalec tudi
+utemeljil.
+Koda je berljiva, poleg tega pa je na vsakem koraku utemeljeno, kakšno vlogo
+ima vsak del kode.
+
+\fkoda{poglavja/resevanje-na-papir/pribor-popolno.cpp}
+
+Spodnja rešitev namesto programa poda opis rešitve.
+Naloga je zahtevala kodo ali psevdokodo, zato za opisno rešitev odbijemo nekaj
+točk, a je iz spodnjega opisa jasno, da tekmovalec razume, kako bi kodo rešitve
+dejansko zapisal, zato še vedno prejme delne točke.
+Žal pa so tudi v opisu napake, za katere dodatno odbijemo nekaj točk.
+Tekmovalec je števila na vhodu shranil v spomin, za kar odbijemo $2$ točki,
+kakor za to nalogo priporočajo nasveti za popravljanje, poleg tega pa je
+tekmovalec pozabil posebej obravnavati prvo prebrano število, za kar odbijemo
+$4$ točke.
+Opisan postopek tudi ne omeni, da moramo na koncu še izpisati višino zadnjega
+stolpa, izpis namreč zahteva le ob obravnavi prevelike žlice.
+Ta rešitev je tako vredna $10$ točk.
+
+\fkoda{poglavja/resevanje-na-papir/pribor-opisno.txt}
+
+Poglejmo si še eno rešitev v psevdokodi.
+Če bi spodnje besedilo prepisali v C++, bi bila rešitev pravilna, razen tega, da
+bi tekmovalec za primerjavo moral uporabiti \koda{<=} namesto \koda{<}, saj v
+navodilih piše, da lahko zložimo dve enako veliki žlici eno nad drugo.
+V navodilih za popravljanje je navedeno, da za tako napako odbijemo $5$ točk.
+Načeloma bi bila potem na tekmovanju taka rešitev vredna $20$ točk, a bo
+popravljavec po lastni presoji lahko dodatno odbil točke zaradi stila pisanja.
+Vse spremenljivke v kodi so enočrkovne, prav tako pa noben del rešitve ni
+utemeljen.
+Če bi imel tekmovalec v kodi napako ali bi kakšen del rešitve napisal z nejasno
+oznako, bi lahko zaradi pomanjkanja razumevanja popravljavec taki rešitvi dal
+mnogo manj točk, saj nebi bilo razvidno, da tekmovalec nalogo sploh razume.
+
+\fkoda{poglavja/resevanje-na-papir/pribor-psevdokoda.txt}
+
+\podnaslov{Palindromski oklepaji}
+
+Ključna opazka pri reševanju naloge je, da niz ne mora biti hkrati zrcalen in
+palindrom.
+Če je niz palindrom, mora namreč prvi znak biti enak zadnjemu, če pa je zrcalen,
+pa mora biti prvi znak zrcalna slika zadnjega.
+Navodila popravljanja za to opazko predvidijo $6$ točk, tudi če rešitev ne reši
+naloge.
+Nadaljnje reševanje lahko razdelimo na dva neodvisna dela --- preverjanje, ali
+je niz palindrom, in preverjanje, ali je niz zrcalen.
+
+Spodnji program preveri le, če je niz palindrom, tekmovalec pa je dodal še
+opombo, da je niz lihe dolžine vedno bodisi palindrom bodisi navaden.
+Takšna rešitev bi na tekmovanju dobila $13$ točk.
+
+\fkoda{poglavja/resevanje-na-papir/oklepaji-palindrom.cpp}
+
+V spodnji rešitvi tekmovalec pravilno določi, če je niz palindrom in če je
+zrcalen, a manjka razmislek o tem, da niz ne more biti hkrati palindrom in
+zrcalen, za kar odbijemo nekaj točk.
+Poleg tega je tekmovalec pozabil prebrati niz in namesto \texttt{zrcalen izraz}
+izpisal le \texttt{zrcalen}, za kar dodatno odbijemo dve točki.
+Tekmovalec prejme $20$ točk.
+
+\fkoda{poglavja/resevanje-na-papir/oklepaji-pomankljiv-razmislek.cpp}
+
+% LocalWords:  formatnik printf enočrkovne zrcalnosti

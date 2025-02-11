@@ -1,0 +1,17 @@
+preberemo n
+preberemo x
+nastavimo v=1
+nastavimo p=x
+
+ponavljamo (n-1)-krat
+    preberemo x
+    če je x < p
+        v=v+1
+        p=x
+
+    če ni
+        izpišemo v
+        v=1
+        p=x
+
+izpišemo v

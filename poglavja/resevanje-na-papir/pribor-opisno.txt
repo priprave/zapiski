@@ -1,0 +1,12 @@
+Prvo preberemo število n, in nato z zanko preberemo še preostala
+števila na vhodu, ki si jih shranimo v seznam.
+Ustvarimo še eno pomožno spremenljivko, ki predstavlja velikost
+trenutnega stolpa žlic. Ker na začetku nimamo žlic, to spremenljivko
+nastavimo na 0.
+
+Potem v zanki pregledujemo seznam števil na vhodu. Vsakič, ko zanka
+pride v glavni del, preverimo, če je trenutna žlica manjša ali enaka
+prejšnji žlici. Če je, potem žlico damo na trenutni kup, torej
+povečamo pomožno spremenljivko za 1, če pa ni, potem pa izpišemo
+velikost trenutnega stolpa. Potem pomožno spremenljivko spet nastavimo
+na 0 in na stolp damo to žlico, torej povečamo spremenljivko za 1.
