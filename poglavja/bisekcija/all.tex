@@ -1,0 +1,94 @@
+\naslov{Osnovna oblika}
+
+Recimo, da imamo dano število $k$, za katerega želimo čim hitreje preveriti, če
+se pojavlja v seznamu \koda{arr} dolžine $n$.
+Običajen algoritem za tako iskanje preveri vsako število v seznamu, dokler
+števila $k$ ne najde, oziroma dokler ne pride do konca seznama.
+V najslabšem primeru, če števila $k$ ni v seznamu, ali če se pojavi le na
+zadnjem mestu, bo algoritem porabil $O(n)$ operacij za tako iskanje.
+To je najbolje možno, če število iščemo le enkrat, če pa v seznamu iščemo veliko
+različnih števil, lahko uporabimo spodnji postopek, da iskanje pohitrimo.
+
+Najprej bomo seznam uredili od najmanjšega do največjega števila z enim od
+hitrih, t.j.~$O(n \log n)$ algoritmov za urejanje.
+V urejenem seznamu lahko iskanje izvajamo na pametnejši način, ki mu pravimo
+\emph{bisekcija} ali \emph{binarno iskanje}.
+Prvo bomo pogledali število na sredini seznama.
+Če je to število večje od $k$, vemo, da se $k$ bodisi nahaja na levi
+polovici seznama, bodisi ga na seznamu sploh ni -- če bi se namreč $k$ pojavil
+na desni polovici seznama, potem seznam nebi bil urejen!
+Podobno, če je element na sredini seznama manjši od $k$, se $k$ nahaja
+v desni polovici seznama, ali pa ga v seznamu ni.
+S tem enim pogledom smo zmanjšali število možnih elementov, ki jih moramo
+pregledati, iz $n$ na $\frac{n}{2}$.
+Če postopek ponovimo na polovičnemu seznamu, torej ga spet razdelimo na
+polovico, nato dobljeno četrtino še enkrat razdelimo na polovico, in tako dalje,
+potem smo pogledali le $\log n$ elementov, da smo našli število $k$, oziroma
+ugotovili, da ga v seznamu ni.
+
+Iskanje lahko implementiramo, kot je napisano spodaj:
+\fkoda{poglavja/bisekcija/bisekcija.cpp}
+V postopku definiramo spremenljivki \koda{levo} in \koda{desno}, ki označujeta
+levi in desni rob dela seznama, ki ga moramo pregledati.
+V vsaki iteraciji izračunamo sredino seznama, in preverimo, če smo slučajno
+naleteli na število $k$.
+Če smo, lahko takoj končamo, sicer pa glede na vrednost \koda{arr[sredina]}
+primerno spremenimo levi oziroma desni rob iskanja.
+V primeru \koda{arr[sredina] > k} vemo, da je število na sredini trenutnega
+podseznama preveliko, torej se $k$ pojavlja na levi polovici, vemo pa tudi, da
+se ne pojavi na indeksu \koda{sredina}, zato lahko nastavimo novo desno mejo na
+\koda{sredina-1}.
+Podobno v drugem primeru, če je \koda{arr[sredina] < k}, nastavimo novo levo
+mejo na \koda{sredina+1}.
+
+Če bi si shranili tudi indeks, kjer smo našli število $k$, bi lahko s pomočjo
+tega indeksa izračunali, koliko elementov v seznamu je večjih in koliko
+elementov seznama je manjših od $k$.
+Pri tem moramo paziti, da bisekcija vrne enega od indeksov elementov, ki so
+enaki $k$; če se to število v seznamu pojavi več kot enkrat, ni
+zagotovljeno, da bodo dobili prvo pojavitev (ali zadnjo, ali sredinsko).
+
+Zgornji program ima časovno zahtevnost $O(n \log n + q \log n)$, ker za iskanje
+vsakega elementa potrebujemo $\log n$ korakov.
+Običajen postopek bi za isto delo potreboval $O(qn)$ operacij, kar je v primeru,
+da sta tako $n$ in $q$ velika, hudo prepočasno.
+
+\naslov{Implementacija v standardni knjižnici}
+
+Bisekcija je kratek algoritem, ki ga lahko hitro spišemo (v zgornjem bloku kode
+na primer porabi le $12$ vrstic kode, če ne štejemo komentarjev in praznih
+vrstic), včasih pa je spisati cel algoritem zamudno, hkrati pa se lahko hitro
+zmotimo.
+K sreči se lahko v veliko primerih izognemo pisanju algoritma, in namesto tega
+uporabimo implementacijo iz standardne knjižnice C++.
+Konkretno sta nam na voljo funkciji \koda{lower_bound} in \koda{upper_bound}, ki
+jima podamo kazalca na začetek in konec seznama ter iskano število, funkciji pa
+potem na seznamu poiščeta dano število.
+Obe imata časovno zahtevnost $O(\log n)$, prav tako pa za obe potrebujemo
+vključiti knjižnico \koda{<algorithm>}.
+
+Funkcija \koda{lower_bound} vrne kazalec na prvi element seznama, ki je večji
+ali enak iskanemu številu, funkcija \koda{upper_bound} pa vrne kazalec na prvi
+element, ki je strogo večji kot iskano število.
+Če funkciji ne najdeta takšnih števil, namesto tega vrneta kazalec na konec
+seznama.
+Poglejmo si, kako bi zgornji primer rešili z uporabo funkcije
+\koda{lower_bound}.
+
+\fkoda{poglavja/bisekcija/knjiznicna-implementacija.cpp}
+
+\naslov{Bisekcija po odgovoru}
+
+Namesto iskanja števila v seznamu nam bisekcija lahko poda tudi argument
+funkcije, pri katerem funkcija da določeno vrednost.
+To metodo reševanja imenujemo \emph{bisekcija po odgovoru} oziroma angleško
+\emph{binary search the answer}.
+
+Če želimo poiskati \koda{x}, pri katerem je \koda{f(x) == k}, lahko v zgornji
+implementaciji bisekcije nadomestimo primerjavo elementa seznama s klicem
+funkcije, in bo postopek deloval enako.
+Paziti moramo, da to deluje le, če je funkcija \koda{f} naraščajoča, torej če za
+vsaki možni vrednosti \koda{x} in \koda{y}, kjer je \koda{x <= y}, velja
+\koda{f(x) <= f(y)}.
+
+% LocalWords:  podseznama
