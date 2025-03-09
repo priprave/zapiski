@@ -137,7 +137,57 @@ argument metodama \koda{insert()} in \koda{erase()}.
 Iteratorjem lahko prištevamo številke, s čimer lahko dostopamo do poljubnega
 elementa vektorja (ali pa to naredimo tudi z oglatimi oklepaji).
 
-% \podnaslov{Skladi}
+\podnaslov{Skladi}
+
+Sklad je podatkovna struktura, ki podpira le dve operaciji:
+\enquote{dodaj element na vrh sklada} in \enquote{odvzemi element z vrha
+  sklada}.
+Predstavljamo si, da elemente zlagamo na kup, iz katerega lahko jemljemo le
+vrhnji element, ker bi se kup sicer prevrnil.
+
+\fkoda{poglavja/podatkovne-strukture/sklad.cpp}
+
+Poleg metod \koda{push()} in \koda{pop()} za dodajanje oz.~odstranjevanje
+elementov imamo na voljo tudi metodi \koda{top()}, ki pogleda, kaj je shranjeno
+na vrhu sklada, in \koda{size()}, ki vrne število elementov na skladu.
+Vse metode imajo časovno zahtevnost $O(1)$.
+
+Poglejmo si primer naloge, kjer v rešitvi uporabimo sklad.
+Zadan nam je naslednji problem:
+Dan je seznam števil, ki opisuje višino stolpnic, postavljenih v vrsto ena za
+drugo.
+Za vsako stolpnico ugotovi, katera je njej najbližja stolpnica na levi, ki je
+višja od nje.
+Za tretjo stolpnico na spodnji sliki je to stolpnica številka $2$, za četrto
+stolpnico pa je odgovor enak $1$, saj sta stolpnici $2$ in $3$ nižji od
+stolpnice $4$.
+
+\begin{figure*}[h!]
+  \centering
+  \includegraphics[width=0.5\linewidth]{poglavja/podatkovne-strukture/stolpnice}
+\end{figure*}
+
+\fkoda{poglavja/podatkovne-strukture/stolpnice.cpp}
+
+Zgornji program bo rešil dan problem na očiten način v $O(n^2)$.
+Obstaja pa tudi linearna rešitev, ki se poslužuje dveh skladov.
+Osnovna ideja je, da si hranimo padajoče zaporedje stolpnic, ki so kandidati za
+najbližjo višjo stolpnico na levi.
+Ko pridemo do stolpnice, ki je nižja od najnižjega kandidata, lahko za njo takoj
+zatrdimo, da je najnižji kandidat ravno iskani odgovor.
+Če pa je najnižji kandidat višji od stolpnice, ki jo trenutno obravnavamo, vemo,
+da ne bo ta kandidat nikoli več najbližja višja stolpnica, saj je trenutna
+stolpnica hkrati višja od kandidata in bližje preostalim stolpnicam.
+Torej lahko kandidate, ki so nižji od trenutne stolpnice, kar odstranimo iz
+sklada.
+
+V rešitvi imamo dve gnezdeni zanki (\koda{while} znotraj \koda{for}).
+Zakaj je potem še vedno linearna?
+Enostaven argument je, da bomo vsako stolpnico enkrat dodali v sklad, in jo
+zato največ enkrat odstranili iz sklada, torej bomo v najslabšem primeru
+opravili $2n$ operacij na skladu.
+
+\fkoda{poglavja/podatkovne-strukture/stolpnice-linearno.cpp}
 
 % \podnaslov{Vrste}
 
