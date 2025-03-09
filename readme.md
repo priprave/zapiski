@@ -28,9 +28,6 @@ Datoteka `meta.tex` je kopirana v preamble samostojnega dokumenta, in v
 vsebino skupnega učbenika.
 Vsebovati mora klic makrota `\poglavje{Ime poglavja}`, ki sistemu pove naslov
 trenutnega poglavja.
-To je tudi primeren kraj za morebitne makrote, specifične na to poglavje.
-Ker se jih ne da deklarirati lokalno, se morajo vsi začeti s kratkim imenom
-poglavja v `camelCase` formatu.
 
 Datoteka `all.tex` naj vsebuje vso vsebino poglavja, ali pa naj kliče
 `\input{poglavja/kratko-ime-poglavja/01-prva-datoteka}`, da vključi besedilo
