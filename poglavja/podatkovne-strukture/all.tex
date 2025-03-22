@@ -189,10 +189,119 @@ opravili $2n$ operacij na skladu.
 
 \fkoda{poglavja/podatkovne-strukture/stolpnice-linearno.cpp}
 
-% \podnaslov{Vrste}
+\podnaslov{Vrste}
 
-% \naslov{Množice}
+Skladom sorodne podatkovne strukture so \emph{vrste}.
+Vrsta podpira le dodajanje elementov na konec in odvzemanje elementov z začetka.
+Tako v nasprotju v skladom pri vrstah elemente odstranjujemo v istem vrstnem
+redu, v katerem smo jih dodali.
+
+V C++-u imamo na voljo podatkovni tip \koda{queue}, ki podaja implementacijo
+vrste.
+Za dodajanje elementov v vrsto uporabljamo metodo \koda{push()}, za odvzemanje
+metodo \koda{pop()}, za dostop do prvega elementa pa metodo \koda{front()}.
+Vse te operacije imajo časovno zahtevnost $O(1)$.
+
+\fkoda{poglavja/podatkovne-strukture/vrsta.cpp}
+
+Razmislimo, kako bi napisali svojo implementacijo vrste.
+Lahko bi uporabili razširljiv seznam iz začetka poglavja, kjer bi za dodajanje
+uporabili funkcijo \koda{dodaj_element} in ji vedno podali
+\koda{i = velikost-1}, za odstranjevanje elementov pa bi uporabili funkcijo
+\koda{odstrani_element}, ki bi ji vedno podali argument \koda{i = 0}.
+Problem je, da bi potem za odstranjevanje elementov vedno potrebovali $O(n)$
+časa, saj bi vedno morali prekopirati celoten seznam.
+
+V spodnji kodi se poslužimo naslednje ideje:
+Namesto, da se vrsta vedno začne na indeksu $0$ tabele \koda{arr}, bomo pustili,
+da se tudi indeks začetka spreminja.
+Potem lahko element vrste \enquote{odstranimo} preprosto tako, da povečamo ta
+indeks; podatek bo sicer še vedno shranjen v spominu, a bomo mi vedeli, da ga
+moramo ignorirati.
+
+\fkoda{poglavja/podatkovne-strukture/vrsta-implementacija.cpp}
+
+\naslov{Množice}
+
+Vrnimo se k osrednjemu vprašanju, hitrosti operacij (O1), (O2) in (O3).
+V sezamu, vrsti in skladu smo podatke imeli organizirano zaporedoma, eden za
+drugim (kakor so v seznamu shranjeni v spominu), in s tem uspeli doseči
+konstantno časovno zahtevnost za dodajanje in odstranjevanje elementov,
+operacija (O3) pa še vedno traja $O(n)$, ker moramo pogledati vsak element
+posebej.
+
+Če si podatke organiziramo v drevesno strukturo, lahko dosežemo hitrost $O(\log
+n)$ na vseh treh operacijah hkrati.
+Recimo, če želimo shraniti številke $1, 2, 4, 6, 7, 10, 13, 19$, jih lahko
+organiziramo kakor v spodnji sliki, tako da vsaka črta na levo pomeni manjšo
+številko, črta na desno pa pomeni večjo številko:
+
+\begin{figure*}[ht!]
+  \centering
+  \begin{tikzpicture}[node distance=1.5cm, every node/.style={draw,circle}]
+	\node (A) at (0,0) {$7$};
+	\node (B) at (-2, -1) {$4$};
+	\node (C) at (-3, -2) {$2$};
+	\node (D) at (-2.3, -3) {$1$};
+	\node (E) at (-1, -2) {$6$};
+
+	\node (G) at (2, -1) {$13$};
+	\node (H) at (1, -2) {$10$};
+	\node (I) at (3, -2) {$19$};
+
+	\draw (A) -- (B) -- (C) -- (D)
+	(B) -- (E)
+	(A) -- (G) -- (H)
+	(G) -- (I);
+  \end{tikzpicture}
+\end{figure*}
+
+Potem lahko preverimo, če je število $k$ vsebovano v naši strukturi, tako, da
+začnemo na vrhu (v sedmici), in se prestavimo levo, če je $k < 7$, oziroma
+desno, če je $k > 7$.
+Potem postopek ponavljamo, dokler lahko, oziroma dokler ne najdemo števila $k$.
+V najslabšem primeru preverimo toliko števil, kolikor je vrstic v drevesu (na
+zgornji sliki $4$).
+Če števila pametno razporedimo, lahko poskrbimo, da bo višina drevesa približno
+$\log n$.
+
+Tudi operaciji dodajanja in odvzemanja števil iz take strukture lahko
+implementiramo tako, da bosta imeli časovno zahtevnost $O(\log n)$, vendar sta
+bolj komplicirani, zato se vanju ne bomo podrobno spuščali.
+
+Takšno drevesno podatkovno strukturo v jeziku C++ uporabljajo \emph{množice}.
+Vsi elementi v množici so različni --- tudi če isti element dodamo večkrat, bo
+shranjena le ena ponovitev.
+Množice definiramo tako kot vektorje, na voljo pa so nam naslednje metode:
+\begin{itemize}
+\item \koda{size()} vrne število elementov v množici,
+\item \koda{clear()} izbriše vse elemente iz možice,
+\item \koda{insert(x)} vstavi \koda{x} v množico,
+\item \koda{count(x)} vrne $1$, če je \koda{x} v množici, in $0$ sicer,
+\item \koda{erase(x)} izbriše \koda{x} iz množice.
+\end{itemize}
+Poglejmo si primer uporabe.
+
+\fkoda{poglavja/podatkovne-strukture/mnozica.cpp}
+
+Če želimo pregledati vse elemente množice, tega žal ne moremo narediti z zanko
+kot pri seznamih, saj ne moremo dostopati do posamičnih elementov --- vprašanje
+\enquote{Kaj je $i$-ti element?} sploh nima smisla pri množicah, saj elementi
+niso postavljeni zaporedno.
+Še vedno pa lahko pregledamo vse elemente v množici z zanko naslednje oblike:
+
+\fkoda{poglavja/podatkovne-strukture/mnozica-iteriranje.cpp}
+
+V tem primeru je \koda{it} iterator na elemente množice in ima tip
+\koda{set<int>::iterator}.
+Da nebi toliko pisali, lahko uporabimo tudi \koda{auto}.
 
 % \podnaslov{Slovarji}
 
+% \podnaslov{Neurejene množice in slovarji}
+
 % \naslov{Prioritetne vrste}
+
+% \naslov{C++ Nizi}
+
+% LocalWords:  sedmici
