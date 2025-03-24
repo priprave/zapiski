@@ -296,7 +296,37 @@ V tem primeru je \koda{it} iterator na elemente množice in ima tip
 \koda{set<int>::iterator}.
 Da nebi toliko pisali, lahko uporabimo tudi \koda{auto}.
 
-% \podnaslov{Slovarji}
+\podnaslov{Slovarji}
+
+Včasih želimo podatke obravnavati v parih $(\text{ključ}, \text{vrednost})$,
+in se hitro sklicati na vrednost pri danem ključu.
+To lahko dosežemo tako, da ustvarimo množico oblike
+
+\fkoda{poglavja/podatkovne-strukture/mnozica-slovar-tip.cpp}
+
+\vspace{-0.5cm}
+\noindent
+kjer podamo tip za ključ in vrednosti.
+Potem do ključa v paru dostopamo s \koda{par.first}, do vrednoti pa s
+\koda{par.second}.
+
+V C++ pa nam je na voljo podatkovna struktura, ki to naredi namesto nas:
+\emph{slovar}.
+Ko ga ustvarimo, moramo podati tip za ključe in tip za vrednosti v slovarju,
+potem pa lahko do shranjenih vrednosti dostopamo tako, da zapišemo ključ v
+oglatih oklepajih.
+
+\fkoda{poglavja/podatkovne-strukture/slovar.cpp}
+
+Slovarje lahko uporabimo tudi kot razpršene tabele, torej kot sezname, kjer so
+indeksi lahko poljubno veliki ali majhni, in kjer nekateri indeksi manjkajo. 
+Običajnega seznama tu ne moremo uporabiti, saj bi lahko potrebovali zelo veliko
+tabelo --- če so indeksi med $-10^9$ in $10^9$, moramo imeti tabelo z več kot
+dvema milijardama elementov, ki bi zavzela več gigabajtov spomina.
+Velikost slovarja pa bo odvisna le od števila elementov, ki jih dejansko
+shranimo.
+
+\fkoda{poglavja/podatkovne-strukture/razprsena-tabela.cpp}
 
 % \podnaslov{Neurejene množice in slovarji}
 
