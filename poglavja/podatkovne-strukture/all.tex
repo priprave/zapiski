@@ -328,7 +328,18 @@ shranimo.
 
 \fkoda{poglavja/podatkovne-strukture/razprsena-tabela.cpp}
 
-% \podnaslov{Neurejene množice in slovarji}
+\podnaslov{Neurejene množice in slovarji}
+
+Množice in slovarji, kot smo jih spoznali zgoraj, si elemente na pameten način
+shranijo urejene po vrsti, s čimer dosežejo časovno zahtevnost $O(\log n)$ za
+operacije (O1), (O2) in (O3).
+Obstajata pa tudi neurejeni različici teh struktur, ki podpirata iste operacije
+(z izjemo \koda{lower_bound} in \koda{upper_bound}), a imata časovno zahtevnost
+$O(1)$ za naštete operacije.
+V delovanje teh struktur se ne bomo spuščali, lahko pa seveda uporabljamo C++
+implementaciji teh struktur.
+
+\fkoda{poglavja/podatkovne-strukture/neurejene-strukture.cpp}
 
 % \naslov{Prioritetne vrste}
 
