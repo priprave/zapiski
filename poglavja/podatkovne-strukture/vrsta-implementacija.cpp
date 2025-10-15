@@ -27,7 +27,7 @@ void dodaj_element(int k) {
     }
 
     // Na kateri indeks dodamo element?
-    int i = (zacetek + velikost) % velikost;
+    int i = (zacetek + velikost) % kapaciteta;
     arr[i] = k;
     velikost++;
 }

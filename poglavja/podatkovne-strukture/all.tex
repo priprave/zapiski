@@ -66,7 +66,7 @@ največ $1000$ elementov.
 Seveda bi lahko pri deklaraciji \koda{int arr[1000]} le povečali številko tako,
 da bi bila dovolj velika za naše potrebe, vendar tega včasih ne želimo narediti
 (na primer če imamo veliko majhnih seznamov in nekaj velikih, a ne vemo v
-naprej, kateri od teh seznamov bodo velikih).
+naprej, kateri od teh seznamov bodo veliki).
 Lahko bi si namesto fiksnega seznama \koda{arr} hranili kazalec na del spomina,
 kjer je seznam shranjen, ter širino tega dela spomina, ter ga po potrebi
 povečali, kot spodaj:
@@ -232,7 +232,7 @@ posebej.
 
 Če si podatke organiziramo v drevesno strukturo, lahko dosežemo hitrost $O(\log
 n)$ na vseh treh operacijah hkrati.
-Recimo, če želimo shraniti številke $1, 2, 4, 6, 7, 10, 13, 19$, jih lahko
+Na primer, če želimo shraniti številke $1, 2, 4, 6, 7, 10, 13, 19$, jih lahko
 organiziramo kakor v spodnji sliki, tako da vsaka črta na levo pomeni manjšo
 številko, črta na desno pa pomeni večjo številko:
 
@@ -256,7 +256,7 @@ organiziramo kakor v spodnji sliki, tako da vsaka črta na levo pomeni manjšo
   \end{tikzpicture}
 \end{figure*}
 
-Potem lahko preverimo, če je število $k$ vsebovano v naši strukturi, tako, da
+Potem lahko preverimo, če je število $k$ vsebovano v naši strukturi tako, da
 začnemo na vrhu (v sedmici), in se prestavimo levo, če je $k < 7$, oziroma
 desno, če je $k > 7$.
 Potem postopek ponavljamo, dokler lahko, oziroma dokler ne najdemo števila $k$.
@@ -341,8 +341,50 @@ implementaciji teh struktur.
 
 \fkoda{poglavja/podatkovne-strukture/neurejene-strukture.cpp}
 
-% \naslov{Prioritetne vrste}
+\naslov{Kopice}
 
-% \naslov{C++ Nizi}
+\emph{Kopica} ali \emph{prioritetna vrsta} deluje podobno kot običajna vrsta, le
+da namesto prvo dodanega elementa vedno odstranimo največji element iz kopice.
+Na voljo so nam podobne operacije kot pri vrstah: \koda{push(x)} doda \koda{x}
+na kopico, \koda{pop()} odstrani največji element iz kopice, \koda{top()} pa
+vrne največji element v kopici.
+Prvi dve našteti metodi imata časovno zahtevnost $O(\log n)$, zadnja pa $O(1)$.
+Da to dosežemo, tudi pri kopici elemente hranimo v drevesni strukturi, ki pa je
+malo drugačna kot struktura pri množicah.
+
+\fkoda{poglavja/podatkovne-strukture/kopica.cpp}
+
+Če želimo, da namesto največjega elementa delamo z najmanjšim elementom na
+kopici, ji moramo ob definiciji dodati še nekaj posebnih argumentov:
+
+\fkoda{poglavja/podatkovne-strukture/kopica-najmanjsi.cpp}
+
+\naslov{Primerjava}
+
+Spoznane strukture lahko primerjamo glede na to, katere operacije podpirajo, in
+kako hitre so te operacije.
+V spodnji tabeli je prikazana časovna zahtevnost pogostih operacij na različnih
+strukturah.
+Operacija \enquote{dodaj} pomeni, da v strukturo dodamo nek element,
+\enquote{poišči} pa da preverimo, ali se dani element nahaja v naši strukturi.
+Ostaneta še operaciji \enquote{odstrani} in \enquote{odstrani $x$}.
+Prva od njih iz strukture odstrani \emph{nek} element --- kateri element bo
+odstranjen je odvisno od podatkovne strukture (npr.~pri skladu bo to vrhnji
+element, pri vrsti pa prvi element).
+Operacija \enquote{odstrani $x$} pa poišče dan element $x$ v strukturi in ga
+odstrani, če je prisoten.
+Če podatkovna struktura ne podpira neke operacije, je to v tabeli označeno z X.
+
+\begin{table*}[h!]
+  \centering
+  \begin{tabular}{c|ccccccc}
+	Operacija & Seznam & Vektor & Sklad & Vrsta & Množica & N. množica & Kopica \\
+	\hline
+	dodaj & X & $O(1)$ & $O(1)$ & $O(1)$ & $O(\log n)$ & $O(1)$ & $O(\log n)$ \\
+	odstrani & X & X & $O(1)$ & $O(1)$ & X & X & $O(\log n)$ \\
+	odstrani $x$ & X & $O(n)$ & X & X & $O(\log n)$ & $O(1)$ & X \\
+	poišči & $O(n)$ & $O(n)$ & X & X & $O(\log n)$ & $O(1)$ & X \\
+  \end{tabular}
+\end{table*}
 
 % LocalWords:  sedmici
